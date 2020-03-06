@@ -2,5 +2,9 @@
 name = "Heap"
 version = "0.1.0"
 chplVersion = "1.20.0"
+authors = ["Rapiz1 <code@rapiz.me>"]
+
+tests = ["basicTest.chpl"]
+examples = ["basicExample.chpl"]
 
 [dependencies]

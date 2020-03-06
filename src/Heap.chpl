@@ -36,9 +36,11 @@ module Heap {
     pragma "no doc"
     var _data: list(eltType) = nil;
 
+    //TODO: not implemented yet
     /* If `true`, this heap will perform parallel safe operations. */
     param parSafe = false;
 
+    //TODO: not implemented yet
     /* If `true`, this heap is a min-heap. */
     param reverse = false;
 

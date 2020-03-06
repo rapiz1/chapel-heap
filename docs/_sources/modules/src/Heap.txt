@@ -1,0 +1,82 @@
+.. default-domain:: chpl
+
+.. module:: Heap
+   :synopsis: This module contains the implementation of the heap type.
+
+Heap
+====
+**Usage**
+
+.. code-block:: chapel
+
+   use Heap;
+
+
+This module contains the implementation of the heap type.
+
+Push or pop an element of a heap is O(lgN) in the worst case, where N is the size of the heap.
+
+.. record:: heap
+
+   .. attribute:: type eltType
+
+      The type of the elements contained in this heap. 
+
+   .. attribute:: param reverse = false
+
+      If `true`, this heap is a min-heap. 
+
+   .. attribute:: param parSafe = false
+
+      If `true`, this heap will perform parallel safe operations. 
+
+   .. method:: proc init(type eltType, param reverse = false, param parSafe = false)
+
+      
+      Initializes an empty heap with `eltType`
+      
+      :arg eltType: The type of the elements
+      
+      :arg reverse: If `true`, this heap is a min-heap.
+      :type reverse: `param bool`
+      
+      :arg parSafe: If `true`, this heap will use parallel safe operations.
+      :type parSafe: `param bool`
+      
+
+   .. method:: proc size: int
+
+      
+      Return the size of the heap.
+      
+
+   .. method:: proc isEmpty(): bool
+
+      
+      Return whether the heap is empty.
+      
+
+   .. method:: proc top(): eltType
+
+      
+      Return the top element of the heap.
+      
+
+   .. method:: proc push(element: eltType)
+
+      
+      Push an element into the heap
+      
+      :arg element: The element that will be pushed
+      
+
+   .. method:: proc pop()
+
+      
+      Pop an element.
+      
+        .. note::
+          This procedure do not return the element.
+      
+      
+

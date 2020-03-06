@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Heap &mdash; chpldoc 0.0.1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="chpldoc 0.0.1 documentation" href="../../index.html"/>
+        <link rel="prev" title="chpldoc documentation" href="../../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> chpldoc
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">chpldoc documentation</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Heap</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">chpldoc</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+    <li>Heap</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/modules/src/Heap.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <span class="target" id="module-Heap"></span><div class="section" id="heap">
+<h1>Heap<a class="headerlink" href="#heap" title="Permalink to this headline">¶</a></h1>
+<p><strong>Usage</strong></p>
+<div class="highlight-chapel"><div class="highlight"><pre><span></span><span class="k">use</span> <span class="nx">Heap</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This module contains the implementation of the heap type.</p>
+<p>Push or pop an element of a heap is O(lgN) in the worst case, where N is the size of the heap.</p>
+<dl class="record">
+<dt id="Heap.heap">
+<em class="property">record </em><code class="descname">heap</code><a class="headerlink" href="#Heap.heap" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="Heap.heap.eltType">
+<em class="property">type </em><code class="descname">eltType</code><a class="headerlink" href="#Heap.heap.eltType" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of the elements contained in this heap.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Heap.heap.reverse">
+<em class="property">param </em><code class="descname">reverse</code> = false<a class="headerlink" href="#Heap.heap.reverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <cite>true</cite>, this heap is a min-heap.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Heap.heap.parSafe">
+<em class="property">param </em><code class="descname">parSafe</code> = false<a class="headerlink" href="#Heap.heap.parSafe" title="Permalink to this definition">¶</a></dt>
+<dd><p>If <cite>true</cite>, this heap will perform parallel safe operations.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Heap.heap.init">
+<em class="property">proc </em><code class="descname">init</code><span class="sig-paren">(</span><em>type eltType</em>, <em>param reverse = false</em>, <em>param parSafe = false</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes an empty heap with <cite>eltType</cite></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>eltType</strong> &#8211; The type of the elements</li>
+<li><strong>reverse</strong> : <cite>param bool</cite> &#8211; If <cite>true</cite>, this heap is a min-heap.</li>
+<li><strong>parSafe</strong> : <cite>param bool</cite> &#8211; If <cite>true</cite>, this heap will use parallel safe operations.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Heap.heap.size">
+<em class="property">proc </em><code class="descname">size</code>: int<a class="headerlink" href="#Heap.heap.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the size of the heap.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Heap.heap.isEmpty">
+<em class="property">proc </em><code class="descname">isEmpty</code><span class="sig-paren">(</span><span class="sig-paren">)</span>: bool<a class="headerlink" href="#Heap.heap.isEmpty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether the heap is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Heap.heap.top">
+<em class="property">proc </em><code class="descname">top</code><span class="sig-paren">(</span><span class="sig-paren">)</span>: eltType<a class="headerlink" href="#Heap.heap.top" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the top element of the heap.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Heap.heap.push">
+<em class="property">proc </em><code class="descname">push</code><span class="sig-paren">(</span><em>element: eltType</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push an element into the heap</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><strong>element</strong> &#8211; The element that will be pushed</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Heap.heap.pop">
+<em class="property">proc </em><code class="descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pop an element.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This procedure do not return the element.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="../../index.html" class="btn btn-neutral" title="chpldoc documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, .
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+  
+ 
+
+
+
+</body>
+</html>

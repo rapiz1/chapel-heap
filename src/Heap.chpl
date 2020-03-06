@@ -61,8 +61,8 @@ module Heap {
     /*
       Return the size of the heap.
     */
-    proc size():int {
-      return _data.size();
+    proc size:int {
+      return _data.size;
     }
 
     /*
@@ -86,7 +86,7 @@ module Heap {
       helper procs to maintain the Heap
     */
     pragma "no doc"
-    proc _up(pos:int) {
+    proc _up(in pos:int) {
       while (pos != 1) {
         var parent = pos / 2;
         if (_data[parent] < _data[pos]) {
@@ -98,12 +98,12 @@ module Heap {
     }
 
     pragma "no doc"
-    proc _down(pos:int) {
-      while (pos <= _data.size()) {
+    proc _down(in pos:int) {
+      while (pos <= _data.size) {
         // find the child node with greater value
         var greaterChild = pos*2;
-        if (greaterChild > _data.size()) then break; // reach leaf node, break
-        if (greaterChild + 1 <= _data.size()) {
+        if (greaterChild > _data.size) then break; // reach leaf node, break
+        if (greaterChild + 1 <= _data.size) {
           // if the right child node exists
           if (_data[greaterChild+1] > _data[greaterChild]) {
             // if the right child is greater, then update the greaterChild
@@ -126,7 +126,7 @@ module Heap {
     */
     proc push(element:eltType) {
       _data.append(element);
-      _up(_data.size());
+      _up(_data.size);
     }
 
     /*
@@ -140,7 +140,7 @@ module Heap {
       if (boundsChecking && isEmpty()) {
         boundsCheckHalt("Called \"heap.pop\" on an empty heap.");
       }
-      _data(1) <=> _data(_data.size());
+      _data(1) <=> _data(_data.size);
       _data.pop();
       _down(1);
     }

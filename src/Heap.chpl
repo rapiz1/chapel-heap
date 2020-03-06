@@ -23,8 +23,6 @@
   Push or pop an element of a heap is O(lgN) in the worst case, where N is the size of the heap.
 */
 module Heap {
-  writeln("New library: Heap");
-
   private use HaltWrappers;
   private use List;
 

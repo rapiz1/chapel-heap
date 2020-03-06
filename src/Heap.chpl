@@ -36,13 +36,12 @@ module Heap {
     pragma "no doc"
     var _data: list(eltType) = nil;
 
+    /* If `true`, this heap is a min-heap. */
+    param reverse = false;
+
     //TODO: not implemented yet
     /* If `true`, this heap will perform parallel safe operations. */
     param parSafe = false;
-
-    //TODO: not implemented yet
-    /* If `true`, this heap is a min-heap. */
-    param reverse = false;
 
     /*
       Initializes an empty heap with `eltType`
@@ -58,6 +57,8 @@ module Heap {
     proc init(type eltType, param reverse=false, param parSafe=false) {
       this.eltType = eltType;
       this._data = new list(eltType);
+      this.reverse = reverse;
+      this.parSafe = parSafe;
     }
 
     /*

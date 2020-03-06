@@ -85,13 +85,22 @@ module Heap {
     }
 
     /*
+      Compare two element, respecting `reverse`
+    */
+    pragma "no doc"
+    proc _greater(x:eltType, y:eltType) {
+      if reverse then return y > x;
+      else return x > y;
+    }
+
+    /*
       helper procs to maintain the Heap
     */
     pragma "no doc"
     proc _up(in pos:int) {
       while (pos != 1) {
         var parent = pos / 2;
-        if (_data[parent] < _data[pos]) {
+        if (_greater(_data[pos],_data[parent])) {
           _data[parent] <=> _data[pos];
           pos = parent;
         }
@@ -107,13 +116,13 @@ module Heap {
         if (greaterChild > _data.size) then break; // reach leaf node, break
         if (greaterChild + 1 <= _data.size) {
           // if the right child node exists
-          if (_data[greaterChild+1] > _data[greaterChild]) {
+          if (_greater(_data[greaterChild+1],_data[greaterChild])) {
             // if the right child is greater, then update the greaterChild
             greaterChild += 1;
           }
         }
         // if the greaterChild's value is greater than current node, then swap and continue
-        if (_data[greaterChild] > _data[pos]) {
+        if (_greater(_data[greaterChild],_data[pos])) {
           _data[greaterChild] <=> _data[pos];
           pos = greaterChild;
         }

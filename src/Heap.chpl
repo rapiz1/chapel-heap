@@ -26,6 +26,10 @@ module Heap {
   private use HaltWrappers;
   private use List;
 
+  public use Sort only defaultComparator, DefaultComparator,
+                       reverseComparator, ReverseComparator;
+  private use Sort;
+
   record heap {
 
     /* The type of the elements contained in this heap. */
@@ -34,8 +38,12 @@ module Heap {
     pragma "no doc"
     var _data: list(eltType) = nil;
 
-    /* If `true`, this heap is a min-heap. */
-    param reverse = false;
+    /*
+      Comparator record that defines how the
+      data is compared. The greatest element will be on the top.
+    */
+    pragma "no doc"
+    var _comparator: Comparator = defaultComparator;
 
     //TODO: not implemented yet
     /* If `true`, this heap will perform parallel safe operations. */
@@ -46,35 +54,44 @@ module Heap {
 
       :arg eltType: The type of the elements
 
-      :arg reverse: If `true`, this heap is a min-heap.
-      :type reverse: `param bool`
+      :arg comparator: `defaultComparator` makes max-heap and `reverseCompartor` makes a min-heap
+      :type comparator: `Comparator`
 
       :arg parSafe: If `true`, this heap will use parallel safe operations.
       :type parSafe: `param bool`
     */
-    proc init(type eltType, param reverse=false, param parSafe=false) {
+    proc init(type eltType, comparator=defaultComparator, param parSafe=false) {
       this.eltType = eltType;
       this._data = new list(eltType);
-      this.reverse = reverse;
+      this._comparator = comparator;
       this.parSafe = parSafe;
     }
 
     /*
       Return the size of the heap.
+
+      :return: The size of the heap
+      :rtype: int
     */
     proc size:int {
       return _data.size;
     }
 
     /*
-      Return whether the heap is empty.
+      Returns `true` if this heap contains zero elements.
+
+      :return: `true` if this heap is empty.
+      :rtype: `bool`
     */
     proc isEmpty():bool {
       return _data.isEmpty();
     }
 
     /*
-      Return the top element of the heap.
+      Return the greatest element in the heap.
+
+      :return: The greatest element in the heap
+      :rtype: `eltType`
     */
     proc top(): eltType {
       if (boundsChecking && isEmpty()) {
@@ -133,6 +150,7 @@ module Heap {
       Push an element into the heap
 
       :arg element: The element that will be pushed
+      :type element: `eltType`
     */
     proc push(element:eltType) {
       _data.append(element);

@@ -161,7 +161,7 @@ module Heap {
       Pop an element.
 
         .. note::
-          This procedure do not return the element.
+          This procedure does not return the element.
 
     */
     proc pop() {

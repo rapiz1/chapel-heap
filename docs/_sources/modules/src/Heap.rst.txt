@@ -22,23 +22,19 @@ Push or pop an element of a heap is O(lgN) in the worst case, where N is the siz
 
       The type of the elements contained in this heap. 
 
-   .. attribute:: param reverse = false
-
-      If `true`, this heap is a min-heap. 
-
    .. attribute:: param parSafe = false
 
       If `true`, this heap will perform parallel safe operations. 
 
-   .. method:: proc init(type eltType, param reverse = false, param parSafe = false)
+   .. method:: proc init(type eltType, comparator = defaultComparator, param parSafe = false)
 
       
       Initializes an empty heap with `eltType`
       
       :arg eltType: The type of the elements
       
-      :arg reverse: If `true`, this heap is a min-heap.
-      :type reverse: `param bool`
+      :arg comparator: `defaultComparator` makes max-heap and `reverseCompartor` makes a min-heap
+      :type comparator: `Comparator`
       
       :arg parSafe: If `true`, this heap will use parallel safe operations.
       :type parSafe: `param bool`
@@ -49,17 +45,26 @@ Push or pop an element of a heap is O(lgN) in the worst case, where N is the siz
       
       Return the size of the heap.
       
+      :return: The size of the heap
+      :rtype: int
+      
 
    .. method:: proc isEmpty(): bool
 
       
-      Return whether the heap is empty.
+      Returns `true` if this heap contains zero elements.
+      
+      :return: `true` if this heap is empty.
+      :rtype: `bool`
       
 
    .. method:: proc top(): eltType
 
       
-      Return the top element of the heap.
+      Return the greatest element in the heap.
+      
+      :return: The greatest element in the heap
+      :rtype: `eltType`
       
 
    .. method:: proc push(element: eltType)
@@ -68,6 +73,7 @@ Push or pop an element of a heap is O(lgN) in the worst case, where N is the siz
       Push an element into the heap
       
       :arg element: The element that will be pushed
+      :type element: `eltType`
       
 
    .. method:: proc pop()
@@ -76,7 +82,7 @@ Push or pop an element of a heap is O(lgN) in the worst case, where N is the siz
       Pop an element.
       
         .. note::
-          This procedure do not return the element.
+          This procedure does not return the element.
       
       
 

@@ -88,10 +88,15 @@ module Heap {
     }
 
     /*
-      Return the greatest element in the heap.
+      Return the maximal element in the heap.
 
-      :return: The greatest element in the heap
+      :return: The maximal element in the heap
       :rtype: `eltType`
+
+      .. note::
+        *Maximal* is defined by ``comparator``. If you pass a ``reverseComparator`` to ``init``,
+        you can get the minimal element.
+
     */
     proc top(): eltType {
       if (boundsChecking && isEmpty()) {

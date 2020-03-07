@@ -1,0 +1,93 @@
+.. default-domain:: chpl
+
+.. module:: Heap
+   :synopsis: This module contains the implementation of the heap type.
+
+Heap
+====
+**Usage**
+
+.. code-block:: chapel
+
+   use Heap;
+
+
+This module contains the implementation of the heap type.
+
+Push or pop an element of a heap is O(lgN) in the worst case, where N is the size of the heap.
+
+.. record:: heap
+
+   .. attribute:: type eltType
+
+      The type of the elements contained in this heap. 
+
+   .. attribute:: param parSafe = false
+
+      If `true`, this heap will perform parallel safe operations. 
+
+   .. method:: proc init(type eltType, comparator: ?rec = defaultComparator, param parSafe = false)
+
+      
+      Initializes an empty heap with `eltType`
+      
+      :arg eltType: The type of the elements
+      
+      :arg comparator: `defaultComparator` makes max-heap and `reverseCompartor` makes a min-heap
+      :type comparator: `Comparator`
+      
+      :arg parSafe: If `true`, this heap will use parallel safe operations.
+      :type parSafe: `param bool`
+      
+
+   .. method:: proc size: int
+
+      
+      Return the size of the heap.
+      
+      :return: The size of the heap
+      :rtype: int
+      
+
+   .. method:: proc isEmpty(): bool
+
+      
+      Returns `true` if this heap contains zero elements.
+      
+      :return: `true` if this heap is empty.
+      :rtype: `bool`
+      
+
+   .. method:: proc top(): eltType
+
+      
+      Return the maximal element in the heap.
+      
+      :return: The maximal element in the heap
+      :rtype: `eltType`
+      
+      .. note::
+        *Maximal* is defined by ``comparator``. If you pass a ``reverseComparator`` to ``init``,
+        you can get the minimal element.
+      
+      
+
+   .. method:: proc push(element: eltType)
+
+      
+      Push an element into the heap
+      
+      :arg element: The element that will be pushed
+      :type element: `eltType`
+      
+
+   .. method:: proc pop()
+
+      
+      Pop an element.
+      
+        .. note::
+          This procedure does not return the element.
+      
+      
+

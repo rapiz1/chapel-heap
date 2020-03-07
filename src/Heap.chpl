@@ -43,7 +43,7 @@ module Heap {
       data is compared. The greatest element will be on the top.
     */
     pragma "no doc"
-    var _comparator: Comparator = defaultComparator;
+    var _comparator: record; 
 
     //TODO: not implemented yet
     /* If `true`, this heap will perform parallel safe operations. */
@@ -60,7 +60,7 @@ module Heap {
       :arg parSafe: If `true`, this heap will use parallel safe operations.
       :type parSafe: `param bool`
     */
-    proc init(type eltType, comparator=defaultComparator, param parSafe=false) {
+    proc init(type eltType, comparator:?rec=defaultComparator, param parSafe=false) {
       this.eltType = eltType;
       this._data = new list(eltType);
       this._comparator = comparator;
@@ -101,12 +101,11 @@ module Heap {
     }
 
     /*
-      Compare two element, respecting `reverse`
+      Wrapper of comparing elements
     */
     pragma "no doc"
     proc _greater(x:eltType, y:eltType) {
-      if reverse then return y > x;
-      else return x > y;
+      return chpl_compare(x, y, _comparator) > 0;
     }
 
     /*

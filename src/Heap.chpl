@@ -50,7 +50,26 @@ module Heap {
     param parSafe = false;
 
     /*
-      Initializes an empty heap with `eltType`
+      Build the heap from elements that have been stored, from bottom to top
+      in O(N)
+    */
+    pragma "no doc"
+    proc _commonInitFromIterable(iterable) {
+      _data = new list(int);
+      for x in iterable do
+        _data.append(iterable);
+      for i in 1 .. _data.size by -1 {
+        const parent = i/2;
+        if (parent <= 0) then
+          break;
+        if (_greater(_data[i], _data[parent])) {
+          _data[i] <=> _data[parent];
+        }
+      }
+    }
+
+    /*
+      Initializes an empty heap.
 
       :arg eltType: The type of the elements
 
@@ -65,6 +84,68 @@ module Heap {
       this._data = new list(eltType);
       this._comparator = comparator;
       this.parSafe = parSafe;
+    }
+
+    /*
+      Initializes a list containing elements that are copy initialized from
+      the elements contained in another list.
+
+      :arg other: The list to initialize from.
+    */
+    proc init=(other: list(this.type.eltType, ?p)) {
+      if !isCopyableType(this.type.eltType) then
+        compilerError("Cannot copy list with element type that cannot be copied");
+
+      this.eltType = this.type.eltType;
+      this._comparator = this.type._comparator;
+      this.parSafe = this.type.parSafe;
+      this.complete();
+      _commonInitFromIterable(other);
+    }
+
+    /*
+      Initializes a heap containing elements that are copy initialized from
+      the elements contained in an array.
+
+      :arg other: The array to initialize from.
+    */
+    proc init=(other: [?d] this.type.eltType) {
+      if !isCopyableType(this.type.eltType) then
+        compilerError("Cannot copy heap from array with element type that cannot be copied");
+
+      this.eltType = this.type.eltType;
+      this._comparator = this.type._comparator;
+      this.parSafe = this.type.parSafe;
+      this.complete();
+      _commonInitFromIterable(other);
+    }
+
+    /*
+      Initializes a heap containing elements that are copy initialized from
+      the elements yielded by a range.
+
+      .. note::
+
+        Attempting to initialize a heap from an unbounded range will trigger
+        a compiler error.
+
+      :arg other: The range to initialize from.
+      :type other: `range(this.type.eltType)`
+    */
+    proc init=(other: range(this.type.eltType, ?b, ?d)) {
+      this.eltType = this.type.eltType;
+      this._comparator = this.type._comparator;
+      this.parSafe = this.type.parSafe;
+
+      if !isBoundedRange(other) {
+        param e = this.type:string;
+        param f = other.type:string;
+        param msg = "Cannot init " + e + " from unbounded " + f;
+        compilerError(msg);
+      }
+
+      this.complete();
+      _commonInitFromIterable(other);
     }
 
     /*

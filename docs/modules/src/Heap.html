@@ -339,6 +339,129 @@ the heap will return the minimal element.</p>
 
 </dd></dl>
 
+<dl class="function">
+<dt id="Heap.makeHeap">
+<em class="property">proc </em><code class="descname">makeHeap</code><span class="sig-paren">(</span><em>x: list(?t)</em>, <em>type comparator = DefaultComparator</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.makeHeap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a heap from a list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> : <cite>list(?t)</cite> – The list to initialize the heap from.</li>
+<li><strong>comparator</strong> – The comparator type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">heap(t, comparator)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">proc </em><code class="descname">makeHeap</code><span class="sig-paren">(</span><em>x: range</em>, <em>type comparator = DefaultComparator</em><span class="sig-paren">)</span></dt>
+<dd><p>Make a heap from a range</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> : <cite>range</cite> – The range to initialize the heap from.</li>
+<li><strong>comparator</strong> – The comparator type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><p>heap(int, comparator)</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Attempting to initialize a heap from an unbounded range will trigger
+a compiler error.</p>
+</div>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">proc </em><code class="descname">makeHeap</code><span class="sig-paren">(</span><em>x: [?d] ?t</em>, <em>type comparator = DefaultComparator</em><span class="sig-paren">)</span></dt>
+<dd><p>Make a heap from a array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> : <cite>[?d] ?t</cite> – The array to initialize the heap from.</li>
+<li><strong>comparator</strong> – The comparator type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">heap(t, comparator)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="Heap.pushHeap">
+<em class="property">proc </em><code class="descname">pushHeap</code><span class="sig-paren">(</span><em>x: list(?t)</em>, <em>ref h: heap(t)</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.pushHeap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push elements of a list into a heap.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> : <cite>list(?t)</cite> – The list of which elements is to push.</li>
+<li><strong>h</strong> : <cite>heap(t)</cite> – The heap to push</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">proc </em><code class="descname">pushHeap</code><span class="sig-paren">(</span><em>x: range</em>, <em>ref h: heap(int)</em><span class="sig-paren">)</span></dt>
+<dd><p>Push elements in a range into a heap.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> : <cite>range</cite> – The range of which elements is to push.</li>
+<li><strong>h</strong> : <cite>heap(int)</cite> – The heap to push</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<em class="property">proc </em><code class="descname">pushHeap</code><span class="sig-paren">(</span><em>x: [?d] ?t</em>, <em>ref h: heap(t)</em><span class="sig-paren">)</span></dt>
+<dd><p>Push elements in an array into a heap.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> : <cite>[?d]?t</cite> – The array of which elements is to push.</li>
+<li><strong>h</strong> : <cite>heap(t)</cite> – The heap to push</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 
 

@@ -340,4 +340,92 @@ module Heap {
       _leave();
     }
   }
+  /*
+    Make a heap from a list.
+
+    :arg x: The list to initialize the heap from.
+    :type x: `list(?t)`
+
+    :arg comparator: The comparator type
+
+    :rtype: heap(t, comparator)
+  */
+  proc makeHeap(x:list(?t), type comparator = DefaultComparator) {
+    var h:heap(t, comparator) = x;
+    return h;
+  }
+  /*
+    Make a heap from a range
+
+    :arg x: The range to initialize the heap from.
+    :type x: `range`
+
+    :arg comparator: The comparator type
+
+    :rtype: heap(int, comparator)
+
+      .. note::
+
+        Attempting to initialize a heap from an unbounded range will trigger
+        a compiler error.
+
+  */
+  proc makeHeap(x:range, type comparator = DefaultComparator) {
+    var h:heap(int, comparator) = x;
+    return h;
+  }
+  /*
+    Make a heap from a array.
+
+    :arg x: The array to initialize the heap from.
+    :type x: `[?d] ?t`
+
+    :arg comparator: The comparator type
+
+    :rtype: heap(t, comparator)
+  */
+  proc makeHeap(x:[?d] ?t, type comparator = DefaultComparator) {
+    var h:heap(t, comparator) = x;
+    return h;
+  }
+
+  /*
+    Push elements of a list into a heap.
+
+    :arg x: The list of which elements is to push.
+    :type x: `list(?t)`
+
+    :arg h: The heap to push
+    :type h: `heap(t)`
+  */
+  proc pushHeap(x:list(?t), ref h:heap(t)) {
+    for e in x do
+      h.push(e);
+  }
+  /*
+    Push elements in a range into a heap.
+
+    :arg x: The range of which elements is to push.
+    :type x: `range`
+
+    :arg h: The heap to push
+    :type h: `heap(int)`
+  */
+  proc pushHeap(x:range, ref h:heap(int)) {
+    for e in x do
+      h.push(e);
+  }
+  /*
+    Push elements in an array into a heap.
+
+    :arg x: The array of which elements is to push.
+    :type x: `[?d]?t`
+
+    :arg h: The heap to push
+    :type h: `heap(t)`
+  */
+  proc pushHeap(x:[?d] ?t, ref h:heap(t)) {
+    for e in x do
+      h.push(e);
+  }
 }

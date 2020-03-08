@@ -155,7 +155,7 @@
 <dl class="method">
 <dt id="Heap.heap.init">
 <em class="property">proc </em><code class="descname">init</code><span class="sig-paren">(</span><em>type eltType</em>, <em>comparator: ?rec = defaultComparator</em>, <em>param parSafe = false</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.init" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes an empty heap with <cite>eltType</cite></p>
+<dd><p>Initializes an empty heap.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -166,6 +166,56 @@
 <li><strong>parSafe</strong> : <cite>param bool</cite> &#8211; If <cite>true</cite>, this heap will use parallel safe operations.</li>
 </ul>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Heap.heap.init=">
+<em class="property">proc </em><code class="descname">init=</code><span class="sig-paren">(</span><em>other: this.type .eltTypelist?p</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.init=" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes a list containing elements that are copy initialized from
+the elements contained in another list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><strong>other</strong> &#8211; The list to initialize from.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">proc </em><code class="descname">init=</code><span class="sig-paren">(</span><em>other: [?d] this.type .eltType</em><span class="sig-paren">)</span></dt>
+<dd><p>Initializes a heap containing elements that are copy initialized from
+the elements contained in an array.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><strong>other</strong> &#8211; The array to initialize from.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">proc </em><code class="descname">init=</code><span class="sig-paren">(</span><em>other: range(this.type .eltType</em>, <em>?b</em>, <em>?d)</em><span class="sig-paren">)</span></dt>
+<dd><p>Initializes a heap containing elements that are copy initialized from
+the elements yielded by a range.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Attempting to initialize a heap from an unbounded range will trigger
+a compiler error.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><strong>other</strong> : <cite>range(this.type.eltType)</cite> &#8211; The range to initialize from.</td>
 </tr>
 </tbody>
 </table>

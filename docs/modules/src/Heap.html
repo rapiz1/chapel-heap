@@ -136,7 +136,14 @@
 </pre></div>
 </div>
 <p>This module contains the implementation of the heap type.</p>
-<p>Push or pop an element of a heap is O(lgN) in the worst case, where N is the size of the heap.</p>
+<p>A heap is a specialized tree-based data structure
+that supports extracting the maximal or the minimal element quickly,
+which can serve as a priority queue.</p>
+<ul class="simple">
+<li>Both <cite>push</cite> and <cite>pop</cite> operations are O(lgN).</li>
+<li>Querying the top element is O(1).</li>
+<li>Initialization from an array is O(N).</li>
+</ul>
 <dl class="record">
 <dt id="Heap.heap">
 <em class="property">record </em><code class="descname">heap</code><a class="headerlink" href="#Heap.heap" title="Permalink to this definition">¶</a></dt>
@@ -174,7 +181,7 @@
 <dl class="method">
 <dt id="Heap.heap.init=">
 <em class="property">proc </em><code class="descname">init=</code><span class="sig-paren">(</span><em>other: this.type .eltTypelist?p</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.init=" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initializes a list containing elements that are copy initialized from
+<dd><p>Initializes a heap containing elements that are copy initialized from
 the elements contained in another list.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -269,8 +276,8 @@ a compiler error.</p>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last"><em>Maximal</em> is defined by <code class="docutils literal"><span class="pre">comparator</span></code>. If you pass a <code class="docutils literal"><span class="pre">reverseComparator</span></code> to <code class="docutils literal"><span class="pre">init</span></code>,
-you can get the minimal element.</p>
+<p class="last"><em>Maximal</em> is defined by <code class="docutils literal"><span class="pre">comparator</span></code>. If a <code class="docutils literal"><span class="pre">reverseComparator</span></code> is passed to <code class="docutils literal"><span class="pre">init</span></code>,
+the heap will return the minimal element.</p>
 </div>
 </dd></dl>
 

@@ -20,7 +20,13 @@
 /* 
   This module contains the implementation of the heap type.
 
-  Push or pop an element of a heap is O(lgN) in the worst case, where N is the size of the heap.
+  A heap is a specialized tree-based data structure
+  that supports extracting the maximal or the minimal element quickly,
+  which can serve as a priority queue.
+
+  * Both `push` and `pop` operations are O(lgN).
+  * Querying the top element is O(1).
+  * Initialization from an array is O(N).
 */
 module Heap {
   private use HaltWrappers;
@@ -35,6 +41,9 @@ module Heap {
     /* The type of the elements contained in this heap. */
     type eltType;
 
+    /*
+      Use a list to store elements.
+    */
     pragma "no doc"
     var _data: list(eltType) = nil;
 
@@ -87,7 +96,7 @@ module Heap {
     }
 
     /*
-      Initializes a list containing elements that are copy initialized from
+      Initializes a heap containing elements that are copy initialized from
       the elements contained in another list.
 
       :arg other: The list to initialize from.
@@ -175,8 +184,8 @@ module Heap {
       :rtype: `eltType`
 
       .. note::
-        *Maximal* is defined by ``comparator``. If you pass a ``reverseComparator`` to ``init``,
-        you can get the minimal element.
+        *Maximal* is defined by ``comparator``. If a ``reverseComparator`` is passed to ``init``,
+        the heap will return the minimal element.
 
     */
     proc top(): eltType {
@@ -195,7 +204,7 @@ module Heap {
     }
 
     /*
-      helper procs to maintain the Heap
+      helper procs to maintain the heap
     */
     pragma "no doc"
     proc _up(in pos:int) {

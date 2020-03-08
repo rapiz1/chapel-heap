@@ -28,19 +28,25 @@ which can serve as a priority queue.
 
       The type of the elements contained in this heap. 
 
+   .. attribute:: type comparator = DefaultComparator
+
+      
+      Comparator record that defines how the
+      data is compared. The greatest element will be on the top.
+      
+
    .. attribute:: param parSafe = false
 
       If `true`, this heap will perform parallel safe operations. 
 
-   .. method:: proc init(type eltType, comparator: ?rec = defaultComparator, param parSafe = false)
+   .. method:: proc init(type eltType, type comparator = DefaultComparator, param parSafe = false)
 
       
       Initializes an empty heap.
       
       :arg eltType: The type of the elements
       
-      :arg comparator: `defaultComparator` makes max-heap and `reverseCompartor` makes a min-heap
-      :type comparator: `Comparator`
+      :arg comparator: `DefaultComparator` makes max-heap and `ReverseCompartor` makes a min-heap
       
       :arg parSafe: If `true`, this heap will use parallel safe operations.
       :type parSafe: `param bool`

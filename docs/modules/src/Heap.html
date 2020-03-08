@@ -154,6 +154,13 @@ which can serve as a priority queue.</p>
 </dd></dl>
 
 <dl class="attribute">
+<dt id="Heap.heap.comparator">
+<em class="property">type </em><code class="descname">comparator</code> = DefaultComparator<a class="headerlink" href="#Heap.heap.comparator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Comparator record that defines how the
+data is compared. The greatest element will be on the top.</p>
+</dd></dl>
+
+<dl class="attribute">
 <dt id="Heap.heap.parSafe">
 <em class="property">param </em><code class="descname">parSafe</code> = false<a class="headerlink" href="#Heap.heap.parSafe" title="Permalink to this definition">¶</a></dt>
 <dd><p>If <cite>true</cite>, this heap will perform parallel safe operations.</p>
@@ -161,7 +168,7 @@ which can serve as a priority queue.</p>
 
 <dl class="method">
 <dt id="Heap.heap.init">
-<em class="property">proc </em><code class="descname">init</code><span class="sig-paren">(</span><em>type eltType</em>, <em>comparator: ?rec = defaultComparator</em>, <em>param parSafe = false</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.init" title="Permalink to this definition">¶</a></dt>
+<em class="property">proc </em><code class="descname">init</code><span class="sig-paren">(</span><em>type eltType</em>, <em>type comparator = DefaultComparator</em>, <em>param parSafe = false</em><span class="sig-paren">)</span><a class="headerlink" href="#Heap.heap.init" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initializes an empty heap.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -169,7 +176,7 @@ which can serve as a priority queue.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Arguments:</th><td class="field-body"><ul class="first last simple">
 <li><strong>eltType</strong> &#8211; The type of the elements</li>
-<li><strong>comparator</strong> : <cite>Comparator</cite> &#8211; <cite>defaultComparator</cite> makes max-heap and <cite>reverseCompartor</cite> makes a min-heap</li>
+<li><strong>comparator</strong> &#8211; <cite>DefaultComparator</cite> makes max-heap and <cite>ReverseCompartor</cite> makes a min-heap</li>
 <li><strong>parSafe</strong> : <cite>param bool</cite> &#8211; If <cite>true</cite>, this heap will use parallel safe operations.</li>
 </ul>
 </td>

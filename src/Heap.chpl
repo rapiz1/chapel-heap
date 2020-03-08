@@ -45,7 +45,6 @@ module Heap {
       Comparator record that defines how the
       data is compared. The greatest element will be on the top.
     */
-    pragma "no doc"
     type comparator = DefaultComparator; 
 
     //TODO: not implemented yet
@@ -77,8 +76,7 @@ module Heap {
 
       :arg eltType: The type of the elements
 
-      :arg comparator: `defaultComparator` makes max-heap and `reverseCompartor` makes a min-heap
-      :type comparator: `Comparator`
+      :arg comparator: `DefaultComparator` makes max-heap and `ReverseCompartor` makes a min-heap
 
       :arg parSafe: If `true`, this heap will use parallel safe operations.
       :type parSafe: `param bool`

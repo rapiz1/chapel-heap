@@ -14,7 +14,13 @@ Heap
 
 This module contains the implementation of the heap type.
 
-Push or pop an element of a heap is O(lgN) in the worst case, where N is the size of the heap.
+A heap is a specialized tree-based data structure
+that supports extracting the maximal or the minimal element quickly,
+which can serve as a priority queue.
+
+* Both `push` and `pop` operations are O(lgN).
+* Querying the top element is O(1).
+* Initialization from an array is O(N).
 
 .. record:: heap
 
@@ -22,22 +28,61 @@ Push or pop an element of a heap is O(lgN) in the worst case, where N is the siz
 
       The type of the elements contained in this heap. 
 
+   .. attribute:: type comparator = DefaultComparator
+
+      
+      Comparator record that defines how the
+      data is compared. The greatest element will be on the top.
+      
+
    .. attribute:: param parSafe = false
 
       If `true`, this heap will perform parallel safe operations. 
 
-   .. method:: proc init(type eltType, comparator = defaultComparator, param parSafe = false)
+   .. method:: proc init(type eltType, type comparator = DefaultComparator, param parSafe = false)
 
       
-      Initializes an empty heap with `eltType`
+      Initializes an empty heap.
       
       :arg eltType: The type of the elements
       
-      :arg comparator: `defaultComparator` makes max-heap and `reverseCompartor` makes a min-heap
-      :type comparator: `Comparator`
+      :arg comparator: `DefaultComparator` makes max-heap and `ReverseCompartor` makes a min-heap
       
       :arg parSafe: If `true`, this heap will use parallel safe operations.
       :type parSafe: `param bool`
+      
+
+   .. method:: proc init=(other: this.type .eltTypelist?p)
+
+      
+      Initializes a heap containing elements that are copy initialized from
+      the elements contained in another list.
+      
+      :arg other: The list to initialize from.
+      
+
+   .. method:: proc init=(other: [?d] this.type .eltType)
+
+      
+      Initializes a heap containing elements that are copy initialized from
+      the elements contained in an array.
+      
+      :arg other: The array to initialize from.
+      
+
+   .. method:: proc init=(other: range(this.type .eltType, ?b, ?d))
+
+      
+      Initializes a heap containing elements that are copy initialized from
+      the elements yielded by a range.
+      
+      .. note::
+      
+        Attempting to initialize a heap from an unbounded range will trigger
+        a compiler error.
+      
+      :arg other: The range to initialize from.
+      :type other: `range(this.type.eltType)`
       
 
    .. method:: proc size: int
@@ -61,10 +106,15 @@ Push or pop an element of a heap is O(lgN) in the worst case, where N is the siz
    .. method:: proc top(): eltType
 
       
-      Return the greatest element in the heap.
+      Return the maximal element in the heap.
       
-      :return: The greatest element in the heap
+      :return: The maximal element in the heap
       :rtype: `eltType`
+      
+      .. note::
+        *Maximal* is defined by ``comparator``. If a ``reverseComparator`` is passed to ``init``,
+        the heap will return the minimal element.
+      
       
 
    .. method:: proc push(element: eltType)

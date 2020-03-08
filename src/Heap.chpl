@@ -29,12 +29,40 @@
   * Initialization from an array is O(N).
 */
 module Heap {
+  import ChapelLocks;
   private use HaltWrappers;
   private use List;
 
   public use Sort only defaultComparator, DefaultComparator,
                        reverseComparator, ReverseComparator;
   private use Sort;
+
+  // The locker is borrowed from List.chpl
+  // 
+  // We can change the lock type later. Use a spinlock for now, even if it
+  // is suboptimal in cases where long critical sections have high
+  // contention (IE, lots of tasks trying to insert into the middle of this
+  // list, or any operation that is O(n)).
+  //
+  pragma "no doc"
+  type _lockType = ChapelLocks.chpl_LocalSpinlock;
+
+  //
+  // Use a wrapper class to let heap methods have a const ref receiver even
+  // when `parSafe` is `true` and the list lock is used.
+  //
+  pragma "no doc"
+  class _LockWrapper {
+    var lock$ = new _lockType();
+
+    inline proc lock() {
+      lock$.lock();
+    }
+
+    inline proc unlock() {
+      lock$.unlock();
+    }
+  }
 
   record heap {
 
@@ -47,9 +75,11 @@ module Heap {
     */
     type comparator = DefaultComparator; 
 
-    //TODO: not implemented yet
     /* If `true`, this heap will perform parallel safe operations. */
     param parSafe = false;
+
+    pragma "no doc"
+    var _lock$ = if parSafe then new _LockWrapper() else none;
 
     /*
       Use a list to store elements.
@@ -171,13 +201,31 @@ module Heap {
     }
 
     /*
+      Locks operations
+    */
+    pragma "no doc"
+    inline proc _enter() {
+      if parSafe then
+        _lock$.lock();
+    }
+
+    pragma "no doc"
+    inline proc _leave() {
+      if parSafe then
+        _lock$.unlock();
+    }
+
+    /*
       Return the size of the heap.
 
       :return: The size of the heap
       :rtype: int
     */
     proc size:int {
-      return _data.size;
+      _enter();
+      var result = _data.size;
+      _leave();
+      return result;
     }
 
     /*
@@ -187,7 +235,10 @@ module Heap {
       :rtype: `bool`
     */
     proc isEmpty():bool {
-      return _data.isEmpty();
+      _enter();
+      var result = _data.isEmpty();
+      _leave();
+      return result;
     }
 
     /*
@@ -202,10 +253,13 @@ module Heap {
 
     */
     proc top(): eltType {
+      _enter();
       if (boundsChecking && isEmpty()) {
         boundsCheckHalt("Called \"heap.top\" on an empty heap.");
       }
-      return _data(1);
+      var result = _data(1);
+      _leave();
+      return result;
     }
 
     /*
@@ -262,8 +316,10 @@ module Heap {
       :type element: `eltType`
     */
     proc push(element:eltType) {
+      _enter();
       _data.append(element);
       _up(_data.size);
+      _leave();
     }
 
     /*
@@ -274,12 +330,14 @@ module Heap {
 
     */
     proc pop() {
+      _enter();
       if (boundsChecking && isEmpty()) {
         boundsCheckHalt("Called \"heap.pop\" on an empty heap.");
       }
       _data(1) <=> _data(_data.size);
       _data.pop();
       _down(1);
+      _leave();
     }
   }
 }

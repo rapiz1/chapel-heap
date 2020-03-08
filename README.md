@@ -5,6 +5,7 @@ One of my goals is to take examples from the standard library as much as possibl
 
 Here's the progress I have made so far:
 * Heap is fully implemented as a mason module.
+* Operations can be parallel safe
 * Correctness tests are provided.
 * A basic example of using this module is provided.
 * Apply `Comparators` to better integrate with other parts of Chapel.

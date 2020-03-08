@@ -4,7 +4,9 @@ version = "0.1.0"
 chplVersion = "1.20.0"
 authors = ["Rapiz1 <code@rapiz.me>"]
 
-tests = ["basicTest.chpl","randomTest.chpl"]
+tests = [ "basicTest.chpl",
+          "randomTest.chpl",
+          "assignmentTest.chpl"]
 examples = ["basicExample.chpl"]
 
 [dependencies]

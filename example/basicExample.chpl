@@ -2,7 +2,7 @@ use Heap;
 
 // Shows how to use a max-heap
 writeln("max-heap used");
-var maxHeap = new heap(int, comparator=defaultComparator);
+var maxHeap = new heap(int);
 
 for i in 1..5 {
   maxHeap.push(i);
@@ -19,7 +19,7 @@ writeln("The size is ", maxHeap.size);
 
 // Shows how to use a min-heap
 writeln("min-heap used");
-var minHeap = new heap(int, comparator=reverseComparator);
+var minHeap = new heap(int, ReverseComparator);
 
 for i in 1..5 {
   minHeap.push(i);

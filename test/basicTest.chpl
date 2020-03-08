@@ -5,7 +5,7 @@ use Sort;
 config const testParam:int = 100;
 
 
-proc rangeTest(comparator, test: borrowed Test) throws{
+proc rangeTest(type comparator, test: borrowed Test) throws{
   var myHeap = new heap(int, comparator);
   var myArr: [1..testParam] int;
 
@@ -19,7 +19,7 @@ proc rangeTest(comparator, test: borrowed Test) throws{
     A reverseComparator is needed to sort myArr in descending order
     Then we can compare the elements one by one.
   */
-  sort(myArr, new ReverseComparator(comparator));
+  sort(myArr, new ReverseComparator(new comparator()));
 
   for i in 1..testParam {
     test.assertTrue(myArr[i] == myHeap.top());
@@ -32,11 +32,11 @@ proc testRunner(test: borrowed Test) throws{
   /*
     Test for max-heap
   */
-  rangeTest(defaultComparator, test);
+  rangeTest(DefaultComparator, test);
   /*
     Test for min-heap
   */
-  rangeTest(reverseComparator, test);
+  rangeTest(ReverseComparator, test);
 }
 
 UnitTest.main();

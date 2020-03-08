@@ -97,7 +97,7 @@ module Heap {
       for x in iterable do
         _data.append(x);
       for i in 1 .. _data.size by -1 {
-        _down(i);
+        _heapify_down(i);
       }
     }
 
@@ -276,7 +276,7 @@ module Heap {
       helper procs to maintain the heap
     */
     pragma "no doc"
-    proc _up(in pos:int) {
+    proc _heapify_up(in pos:int) {
       while (pos != 1) {
         var parent = pos / 2;
         if (_greater(_data[pos],_data[parent])) {
@@ -288,7 +288,7 @@ module Heap {
     }
 
     pragma "no doc"
-    proc _down(in pos:int) {
+    proc _heapify_down(in pos:int) {
       while (pos <= _data.size) {
         // find the child node with greater value
         var greaterChild = pos*2;
@@ -318,7 +318,7 @@ module Heap {
     proc push(element:eltType) {
       _enter();
       _data.append(element);
-      _up(_data.size);
+      _heapify_up(_data.size);
       _leave();
     }
 
@@ -336,7 +336,7 @@ module Heap {
       }
       _data(1) <=> _data(_data.size);
       _data.pop();
-      _down(1);
+      _heapify_down(1);
       _leave();
     }
   }

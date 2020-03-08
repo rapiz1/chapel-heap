@@ -42,21 +42,21 @@ module Heap {
     type eltType;
 
     /*
-      Use a list to store elements.
-    */
-    pragma "no doc"
-    var _data: list(eltType) = nil;
-
-    /*
       Comparator record that defines how the
       data is compared. The greatest element will be on the top.
     */
     pragma "no doc"
-    var _comparator: record; 
+    type comparator = DefaultComparator; 
 
     //TODO: not implemented yet
     /* If `true`, this heap will perform parallel safe operations. */
     param parSafe = false;
+
+    /*
+      Use a list to store elements.
+    */
+    pragma "no doc"
+    var _data: list(eltType);
 
     /*
       Build the heap from elements that have been stored, from bottom to top
@@ -66,14 +66,9 @@ module Heap {
     proc _commonInitFromIterable(iterable) {
       _data = new list(int);
       for x in iterable do
-        _data.append(iterable);
+        _data.append(x);
       for i in 1 .. _data.size by -1 {
-        const parent = i/2;
-        if (parent <= 0) then
-          break;
-        if (_greater(_data[i], _data[parent])) {
-          _data[i] <=> _data[parent];
-        }
+        _down(i);
       }
     }
 
@@ -88,12 +83,32 @@ module Heap {
       :arg parSafe: If `true`, this heap will use parallel safe operations.
       :type parSafe: `param bool`
     */
-    proc init(type eltType, comparator:?rec=defaultComparator, param parSafe=false) {
+    proc init(type eltType, type comparator=DefaultComparator, param parSafe=false) {
       this.eltType = eltType;
-      this._data = new list(eltType);
-      this._comparator = comparator;
+      this.comparator = comparator;
       this.parSafe = parSafe;
+      this._data = new list(eltType);
     }
+
+    /*
+      Initializes a heap containing elements that are copy initialized from
+      the elements contained in another heap.
+
+      :arg other: The heap to initialize from.
+    */
+    /*
+    // FIXME: Why does it not work?
+    proc init=(other: heap(this.type.eltType, ?cmp)) {
+      if !isCopyableType(this.type.eltType) then
+        compilerError("Cannot copy heap with element type that cannot be copied");
+
+      this.eltType = this.type.eltType;
+      this.comparator = this.type.comparator;
+      this.parSafe = this.type.parSafe;
+      this.complete();
+      _commonInitFromIterable(other._data);
+    }
+    */
 
     /*
       Initializes a heap containing elements that are copy initialized from
@@ -106,7 +121,7 @@ module Heap {
         compilerError("Cannot copy list with element type that cannot be copied");
 
       this.eltType = this.type.eltType;
-      this._comparator = this.type._comparator;
+      this.comparator = this.type.comparator;
       this.parSafe = this.type.parSafe;
       this.complete();
       _commonInitFromIterable(other);
@@ -123,7 +138,7 @@ module Heap {
         compilerError("Cannot copy heap from array with element type that cannot be copied");
 
       this.eltType = this.type.eltType;
-      this._comparator = this.type._comparator;
+      this.comparator = this.type.comparator;
       this.parSafe = this.type.parSafe;
       this.complete();
       _commonInitFromIterable(other);
@@ -143,7 +158,7 @@ module Heap {
     */
     proc init=(other: range(this.type.eltType, ?b, ?d)) {
       this.eltType = this.type.eltType;
-      this._comparator = this.type._comparator;
+      this.comparator = this.type.comparator;
       this.parSafe = this.type.parSafe;
 
       if !isBoundedRange(other) {
@@ -200,7 +215,9 @@ module Heap {
     */
     pragma "no doc"
     proc _greater(x:eltType, y:eltType) {
-      return chpl_compare(x, y, _comparator) > 0;
+      //TODO: We should create the instance elsewhere to reuse it.
+      var cmp = new comparator();
+      return chpl_compare(x, y, cmp) > 0;
     }
 
     /*

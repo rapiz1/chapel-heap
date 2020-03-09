@@ -217,3 +217,15 @@ which can serve as a priority queue.
    :type h: `heap(t)`
    
 
+.. function:: proc popHeap(ref h: heap(?t))
+
+   
+   Pop elements into a list.
+   
+   :arg h: The heap to pop
+   :type h: `ref heap(t)`
+   
+   :return: A list containing all elements in the heap
+   :rtype: `list(t)`
+   
+

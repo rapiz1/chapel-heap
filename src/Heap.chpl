@@ -428,4 +428,22 @@ module Heap {
     for e in x do
       h.push(e);
   }
+
+  /*
+    Pop elements into a list.
+
+    :arg h: The heap to pop
+    :type h: `ref heap(t)`
+
+    :return: A list containing all elements in the heap
+    :rtype: `list(t)`
+  */
+  proc popHeap(ref h:heap(?t)) {
+    var l = new list(t);
+    while (!h.isEmpty()) {
+      l.append(h.top());
+      h.pop();
+    }
+    return l;
+  }
 }
